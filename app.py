@@ -7,16 +7,6 @@ def remove_zero_width_spaces(text):
     
 app = Flask(__name__)
 
-# Load the trained models globally
-with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
-    binary_model = pickle.load(f)
-with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
-    pride_model = pickle.load(f)
-with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
-    threat_model = pickle.load(f)
-with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
-    xenop_model = pickle.load(f)
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -45,4 +35,13 @@ def result():
     return render_template('result.html', prediction=binary_prediction, message=message)
 
 if __name__ == '__main__':
+    # Load the trained models
+    with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
+        binary_model = pickle.load(f)
+    with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
+        pride_model = pickle.load(f)
+    with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
+        threat_model = pickle.load(f)
+    with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
+        xenop_model = pickle.load(f)
     app.run(debug=True)
