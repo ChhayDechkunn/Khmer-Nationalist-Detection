@@ -7,25 +7,15 @@ def remove_zero_width_spaces(text):
     
 app = Flask(__name__)
 
-binary_model = None
-pride_model = None
-threat_model = None
-xenop_model = None
-
-def load_models():
-    global binary_model, pride_model, threat_model, xenop_model
-    try:
-        with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
-            binary_model = pickle.load(f)
-        with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
-            pride_model = pickle.load(f)
-        with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
-            threat_model = pickle.load(f)
-        with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
-            xenop_model = pickle.load(f)
-        print("Models loaded successfully")
-    except Exception as e:
-        print("Failed to load models:", str(e))
+# Load the trained models globally
+with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
+    binary_model = pickle.load(f)
+with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
+    pride_model = pickle.load(f)
+with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
+    threat_model = pickle.load(f)
+with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
+    xenop_model = pickle.load(f)
 
 @app.route('/')
 def home():
@@ -33,7 +23,6 @@ def home():
 
 @app.route('/result', methods=['GET'])
 def result():
-    global binary_model, pride_model, threat_model, xenop_model
     text = request.args.get('inputText')
     binary_prediction = binary_model.predict([text])[0]
     if binary_prediction == 1:
@@ -56,6 +45,4 @@ def result():
     return render_template('result.html', prediction=binary_prediction, message=message)
 
 if __name__ == '__main__':
-    load_models()
-
     app.run(debug=True)
