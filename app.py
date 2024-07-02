@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import joblib
-from preprocessing import tokenize_kh, remove_affixes
+#from preprocessing import tokenize_kh, remove_affixes
 def remove_zero_width_spaces(text):
     return text.replace('\u200B', '')
 import dill    
