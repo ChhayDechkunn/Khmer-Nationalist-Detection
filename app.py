@@ -7,6 +7,11 @@ def remove_zero_width_spaces(text):
     
 app = Flask(__name__)
 
+binary_model = None
+pride_model = None
+threat_model = None
+xenop_model = None
+
 def load_models():
     global binary_model, pride_model, threat_model, xenop_model
     try:
@@ -28,6 +33,7 @@ def home():
 
 @app.route('/result', methods=['GET'])
 def result():
+    global binary_model, pride_model, threat_model, xenop_model
     text = request.args.get('inputText')
     binary_prediction = binary_model.predict([text])[0]
     if binary_prediction == 1:
