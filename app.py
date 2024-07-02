@@ -1,11 +1,20 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import joblib
-from preprocessing import tokenize_kh, remove_affixes
 def remove_zero_width_spaces(text):
     return text.replace('\u200B', '')
     
 app = Flask(__name__)
+
+# Load the trained models globally
+with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
+    binary_model = pickle.load(f)
+with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
+    pride_model = pickle.load(f)
+with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
+    threat_model = pickle.load(f)
+with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
+    xenop_model = pickle.load(f)
 
 @app.route('/')
 def home():
@@ -35,13 +44,5 @@ def result():
     return render_template('result.html', prediction=binary_prediction, message=message)
 
 if __name__ == '__main__':
-    # Load the trained models
-    with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
-        binary_model = pickle.load(f)
-    with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
-        pride_model = pickle.load(f)
-    with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
-        threat_model = pickle.load(f)
-    with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
-        xenop_model = pickle.load(f)
+    from preprocessing import tokenize_kh, remove_affixes
     app.run(debug=True)
