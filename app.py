@@ -1,19 +1,18 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import joblib
-from preprocessing import tokenize_kh
+from preprocessing import tokenize_kh, remove_affixes
 def remove_zero_width_spaces(text):
     return text.replace('\u200B', '')
-import logging   
+import dill    
 app = Flask(__name__)
-logging.debug('tokenize_kh and remove_affixes have been imported successfully.')
 @app.route('/')
 #def home():
 #    return render_template('index.html')
-
-def hello_world():
-    return tokenize_kh("ខ្ញុំជាមន្រ្តី!")
-
+def home():
+    with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
+        binary_model = pickle.load(f)
+    return binary_model.predict("សៀមឈ្លានពានយើងហើយ!")
 #@app.route('/result', methods=['GET'])
 #def result():
 #        # Load the trained models globally
@@ -32,14 +31,14 @@ def hello_world():
 #        pride_prediction = pride_model.predict([text])[0]
 #        threat_prediction = threat_model.predict([text])[0]
 #        xenop_prediction = xenop_model.predict([text])[0]
-#
+
 #        if pride_prediction == 1:
 #            messages.append("nationalist pride sentiment")
 #        if threat_prediction == 1:
 #            messages.append("nationalist threat sentiment")
 #        if xenop_prediction == 1:
 #            messages.append("nationalist xenophobia sentiment")
-#
+
 #        if messages:
 #            message = f"The piece of text may contain {' and '.join(messages)}."
 #        else:
