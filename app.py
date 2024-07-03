@@ -7,12 +7,6 @@ def remove_zero_width_spaces(text):
 import dill    
 app = Flask(__name__)
 
-class CustomUnpickler(pickle.Unpickler):
-    def find_class(self, module, name):
-        if name == 'tokenize_kh':
-            from preprocessing import tokenize_kh, remove_affixes  
-            return tokenize_kh, remove_affixes
-        return super().find_class(module, name)
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -21,13 +15,13 @@ def home():
 def result():
         # Load the trained models globally
     with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
-        binary_model = CustomUnpickler.load(f)
+        binary_model = pickle.load(f)
     with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
-        pride_model = CustomUnpickler.load(f)
+        pride_model = pickle.load(f)
     with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
-        threat_model = CustomUnpickler.load(f)
+        threat_model = pickle.load(f)
     with open('model/svm_tfidf_binary_weighted_model_anti.pkl', 'rb') as f:
-        xenop_model = CustomUnpickler.load(f)
+        xenop_model = pickle.load(f)
     text = request.args.get('inputText')
     binary_prediction = binary_model.predict([text])[0]
     if binary_prediction == 1:
