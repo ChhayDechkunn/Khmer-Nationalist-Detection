@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import joblib
+import preprocessing
 from preprocessing import tokenize_kh, remove_affixes
 def remove_zero_width_spaces(text):
     return text.replace('\u200B', '')
@@ -15,7 +16,7 @@ def home():
 def result():
         # Load the trained models globally
     with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
-        binary_model = pickle.load(f)
+        binary_model = dill.load(f)
     with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
         pride_model = pickle.load(f)
     with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
