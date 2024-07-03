@@ -14,7 +14,7 @@ logging.debug('tokenize_kh and remove_affixes have been imported successfully.')
 def hello_world():
     return tokenize_kh("ខ្ញុំជាមន្រ្តី!")
 
-@app.route('/result', methods=['GET'])
+#@app.route('/result', methods=['GET'])
 #def result():
 #        # Load the trained models globally
 #    with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
