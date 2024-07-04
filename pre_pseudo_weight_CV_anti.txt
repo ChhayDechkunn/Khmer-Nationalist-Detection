@@ -1,0 +1,107 @@
+Fitting 5 folds for each of 15 candidates, totalling 75 fits
+Fitting 5 folds for each of 6 candidates, totalling 30 fits
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+ិថុនា', 'កក្កដា',
+                                             'សីហា', 'កញ្ញា', 'តុលា',
+                                             'វិច្ឆិកា', 'ធ្នូ', 'មីនា',
+                                             'អាទិត្យ', 'ច័ន្ទ', 'អង្គារ',
+                                             'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ',
+                                             'សៅរ៍', 'ចន្ទ'],
+                                 tokenizer=<function tokenize_kh at 0x00000199068DB100>)),
+                ('scaler', MaxAbsScaler()),
+                ('clf',
+                 LogisticRegression(C=0.01, class_weight='balanced',
+                                    solver='liblinear'))])
+              precision    recall  f1-score   support
+
+         0.0       0.79      0.69      0.74       360
+         1.0       0.51      0.64      0.57       182
+
+    accuracy                           0.67       542
+   macro avg       0.65      0.66      0.65       542
+weighted avg       0.70      0.67      0.68       542
+
+[[247 113]
+ [ 65 117]]
+[0.62586055 0.61571091 0.61605446 0.61605446 0.61875252 0.6208454
+ 0.61896477 0.61854838 0.61812245 0.62126729 0.58016257 0.58142571
+ 0.58223021 0.58016257 0.58210659]
+Naive Bayes:
+Best_model:  Pipeline(steps=[('tfidf',
+                 TfidfVectorizer(stop_words=[' ', 'មករា', 'កុម្ភៈ', 'មិនា',
+                                             'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា',
+                                             'សីហា', 'កញ្ញា', 'តុលា',
+                                             'វិច្ឆិកា', 'ធ្នូ', 'មីនា',
+                                             'អាទិត្យ', 'ច័ន្ទ', 'អង្គារ',
+                                             'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ',
+                                             'សៅរ៍', 'ចន្ទ'],
+                                 tokenizer=<function tokenize_kh at 0x00000199068DB100>)),
+                ('clf', ComplementNB(alpha=0.1))])
+              precision    recall  f1-score   support
+
+         0.0       0.78      0.69      0.73       360
+         1.0       0.50      0.62      0.55       182
+
+    accuracy                           0.66       542
+   macro avg       0.64      0.65      0.64       542
+weighted avg       0.69      0.66      0.67       542
+
+[[247 113]
+ [ 69 113]]
+[0.57246347 0.57246347 0.54169785 0.54169785 0.42962091 0.42962091]
+Random Forest:
+Best_model:  Pipeline(steps=[('tfidf',
+                 TfidfVectorizer(stop_words=[' ', 'មករា', 'កុម្ភៈ', 'មិនា',
+                                             'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា',
+                                             'សីហា', 'កញ្ញា', 'តុលា',
+                                             'វិច្ឆិកា', 'ធ្នូ', 'មីនា',
+                                             'អាទិត្យ', 'ច័ន្ទ', 'អង្គារ',
+                                             'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ',
+                                             'សៅរ៍', 'ចន្ទ'],
+                                 tokenizer=<function tokenize_kh at 0x00000199068DB100>)),
+                ('clf',
+                 RandomForestClassifier(class_weight='balanced', max_depth=20,
+                                        min_samples_leaf=5))])
+              precision    recall  f1-score   support
+
+         0.0       0.77      0.76      0.77       360
+         1.0       0.54      0.56      0.55       182
+
+    accuracy                           0.69       542
+   macro avg       0.66      0.66      0.66       542
+weighted avg       0.70      0.69      0.69       542
+
+[[274  86]
+ [ 80 102]]
+[0.57352695 0.60156195 0.58507823 0.58327144 0.55632856 0.52281514
+ 0.56102664 0.57552176 0.5755298  0.56084622 0.48702539 0.60504405
+ 0.592966   0.52829397 0.59823793 0.56990911 0.55410473 0.57764475
+ 0.59004758 0.56734858]
+SVM:
+Best_model:  Pipeline(steps=[('tfidf',
+                 TfidfVectorizer(stop_words=[' ', 'មករា', 'កុម្ភៈ', 'មិនា',
+                                             'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា',
+                                             'សីហា', 'កញ្ញា', 'តុលា',
+                                             'វិច្ឆិកា', 'ធ្នូ', 'មីនា',
+                                             'អាទិត្យ', 'ច័ន្ទ', 'អង្គារ',
+                                             'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ',
+                                             'សៅរ៍', 'ចន្ទ'],
+                                 tokenizer=<function tokenize_kh at 0x00000199068DB100>)),
+                ('scaler', MaxAbsScaler()),
+                ('clf',
+                 SVC(C=0.1, class_weight='balanced', kernel='linear',
+                     probability=True))])
+              precision    recall  f1-score   support
+
+         0.0       0.81      0.74      0.77       360
+         1.0       0.56      0.66      0.61       182
+
+    accuracy                           0.71       542
+   macro avg       0.69      0.70      0.69       542
+weighted avg       0.73      0.71      0.72       542
+
+[[266  94]
+ [ 62 120]]
+[0.53904521 0.         0.         0.         0.61348734 0.05731568
+ 0.55181787 0.58775888 0.54058684 0.12593833 0.57020685 0.61176063]
