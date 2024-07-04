@@ -16,7 +16,7 @@ def home():
 def result():
         # Load the trained models globally
     with open('model/lr_tfidf_binary_weighted_model.pkl', 'rb') as f:
-        binary_model = dill.load(f)
+        binary_model = pickle.load(f)
     with open('model/svm_tfidf_binary_weighted_model_pride.pkl', 'rb') as f:
         pride_model = pickle.load(f)
     with open('model/nb_tfidf_binary_weighted_model_threat.pkl', 'rb') as f:
@@ -25,6 +25,7 @@ def result():
         xenop_model = pickle.load(f)
     text = request.args.get('inputText')
     binary_prediction = binary_model.predict([text])[0]
+    message = ""
     if binary_prediction == 1:
         messages = []
         pride_prediction = pride_model.predict([text])[0]
@@ -42,6 +43,9 @@ def result():
             message = f"The piece of text may contain {' and '.join(messages)}."
         else:
             message = "The piece of text may contain nationalist sentiment."
+    else:
+        message = "The piece of text does not contain nationalist sentiment."        
+    
     return render_template('result.html', prediction=binary_prediction, message=message)
 
 if __name__ == '__main__':
